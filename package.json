@@ -4,6 +4,7 @@
     "@emotion/styled": "^11.14.1",
     "@fontsource/roboto": "^5.2.8",
     "@mui/icons-material": "^7.3.5",
-    "@mui/material": "^7.3.5"
+    "@mui/material": "^7.3.5",
+    "@mui/x-data-grid": "^8.19.0"
   }
 }
