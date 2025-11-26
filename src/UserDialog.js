@@ -4,58 +4,74 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button"; 
- 
-function UserDialog ({ 
-    open,
-    editing,
-    firstName,
-    lastName, 
-    age, 
-    onClose, 
-    onSave, 
-    onFirstNameChange, 
-    onLastNameChange, 
-    onAgeChange}){
-    return (
-        // Dialog component used for adding a new user
-     <Dialog open={open} onClose={onClose}>
-        <DialogTitle>
-            {editing ? "Edit User" : "Add User"}
-        </DialogTitle>
+import Button from "@mui/material/Button";
 
-        <DialogContent>
-          <DialogContentText>
-            { editing ? "Update the user information below." : "Enter new user information below."}
-          </DialogContentText>
+function UserDialog({
+  open,
+  readOnly,
+  editing,
+  firstName,
+  lastName,
+  age,
+  onClose,
+  onSave,
+  onFirstNameChange,
+  onLastNameChange,
+  onAgeChange,
+}) {
+  return (
+    // Dialog component used for adding a new user
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>
+        {readOnly ? "User Info" : editing ? "Edit User" : "Add User"}
+      </DialogTitle>
 
-          {/* Input fields for the user's first name, last name, and age */}
-          <TextField autoFocus 
-          margin="dense" 
-          label="First Name" 
-          fullWidth value={firstName} 
-          onChange={onFirstNameChange}/>
-          <TextField 
-          margin="dense" 
-          label="Last Name" 
-          fullWidth value={lastName} 
-          onChange={onLastNameChange}/>
-          <TextField 
-          margin="dense" 
-          label="Age" 
-          type="number" 
-          fullWidth 
-          value={age} 
-          onChange={onAgeChange}/>
-        </DialogContent>
+      <DialogContent>
+        <DialogContentText>
+          {readOnly
+            ? ""
+            : editing
+            ? "Update the user information below."
+            : "Enter new user information below."}
+        </DialogContentText>
 
-         {/* Action buttons at the bottom of the dialog */}
-        <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onSave}>{editing ? "Update" : "Save"}</Button>
-        </DialogActions>
-      </Dialog>
-    );
+        {/* Input fields for the user's first name, last name, and age */}
+        <TextField
+          autoFocus
+          margin="dense"
+          label="First Name"
+          type="text"
+          fullWidth
+          value={firstName}
+          onChange={onFirstNameChange}
+        />
+        <TextField
+          margin="dense"
+          label="Last Name"
+          type="text"
+          fullWidth
+          value={lastName}
+          onChange={onLastNameChange}
+          disabled={readOnly}
+        />
+        <TextField
+          margin="dense"
+          label="Age"
+          type="number"
+          fullWidth
+          value={age}
+          onChange={onAgeChange}
+          disabled={readOnly}
+        />
+      </DialogContent>
+
+      {/* Action buttons at the bottom of the dialog */}
+      <DialogActions>
+        <Button onClick={onClose}>{readOnly ? "Close" : "Cancel"}</Button>
+        <Button onClick={onSave}>{editing ? "Update" : "Save"}</Button>
+      </DialogActions>
+    </Dialog>
+  );
 }
 
 export default UserDialog;

@@ -9,7 +9,8 @@ import { GridToolbarContainer } from "@mui/x-data-grid";
 // appearance only
 function CustomToolbar({ onAddClick, selectedRows, userRows, handleEdit, handleDelete }) {
   return (
-    <GridToolbarContainer>
+    <GridToolbarContainer sx={{
+        backgroundColor: "#efefef",}}>
       <IconButton color="primary" aria-label="Add New" onClick ={onAddClick}>
         <AddIcon />
       </IconButton>

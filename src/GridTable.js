@@ -36,7 +36,27 @@ function GridTable() {
     { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
     { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
     { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
+    { id: 4, firstName: "Arya", lastName: "Stark", age: 16 },
+    { id: 5, firstName: "Sansa", lastName: "Stark", age: 20 },
+    { id: 6, firstName: "Bran", lastName: "Stark", age: 18 },
+    { id: 7, firstName: "Tyrion", lastName: "Lannister", age: 39 },
+    { id: 8, firstName: "Daenerys", lastName: "Targaryen", age: 32 },
+    { id: 9, firstName: "Jorah", lastName: "Mormont", age: 45 },
+    { id: 10, firstName: "Samwell", lastName: "Tarly", age: 25 },
   ]);
+
+  const [openRead, setOpenRead] = React.useState(false);
+  const [readUser, setReadUser] = React.useState(null);
+
+  const handleRead = (user) => {
+    setReadUser(user);
+    setOpenRead(true);
+  };
+
+  const handleReadClose = () => {
+    setOpenRead(false);
+    setReadUser(null);
+  };
 
   // Open dialog when Add button is clicked
   const handleClickOpen = () => {
@@ -109,7 +129,7 @@ function GridTable() {
             md: "50%",
             lg: "40%",
           },
-          height: 400,
+          height: 600,
         }}
       >
         <DataGrid
@@ -117,6 +137,9 @@ function GridTable() {
           columns={columns}
           pageSizeOptions={[5, 10]} // Options for page size in the pagination
           checkboxSelection // Enables checkboxes to select rows
+          disableColumnFilter // フィルター機能を無効化
+        sortingOrder={['asc', 'desc', null]} // 並べ替えを有効化
+          onRowClick={(params) => handleRead(params.row)}
           sx={{ border: 0 }} // Removes the default border around the grid
           // Replacing the default toolbar with a custom toolbar
           slots={{
@@ -132,8 +155,9 @@ function GridTable() {
           }}
           showToolbar // Ensures that the toolbar is displayed
           selectionModel={selectedRows}
-          onRowSelectionModelChange={(newSelection) => setSelectedRows(newSelection)}
-
+          onRowSelectionModelChange={(newSelection) =>
+            setSelectedRows(newSelection)
+          }
         />
       </Paper>
 
@@ -149,6 +173,16 @@ function GridTable() {
         onFirstNameChange={(e) => setFirstName(e.target.value)}
         onLastNameChange={(e) => setLastName(e.target.value)}
         onAgeChange={(e) => setAge(e.target.value)}
+      />
+
+      <UserDialog
+        open={openRead}
+        readOnly={true}
+        editing={false}
+        firstName={readUser?.firstName || ""}
+        lastName={readUser?.lastName || ""}
+        age={readUser?.age || ""}
+        onClose={handleReadClose}
       />
 
       <UserDialog
