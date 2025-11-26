@@ -1,6 +1,10 @@
-import React from "react";
 import "./App.css";
 import GridTable from "./GridTable";
+
+
+// App.js:
+// Components that make up the entire app.
+// Loads the GridTable and builds the screen.
 
 function App(){
   return (
@@ -14,7 +18,7 @@ function App(){
       >
         User Grid App
       </h1>
-        <GridTable />
+        <GridTable /> {/* call the GridTable */}
   </div>
   );
 }

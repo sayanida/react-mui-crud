@@ -1,8 +1,8 @@
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogActions from "@mui/material/DialogActions";
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import { DialogContent } from '@mui/material';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -23,6 +23,7 @@ function UserDialog({
     // Dialog component used for adding a new user
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>
+        {/* condition ? trueExpression : falseExpression */}
         {readOnly ? "User Info" : editing ? "Edit User" : "Add User"}
       </DialogTitle>
 
@@ -38,12 +39,13 @@ function UserDialog({
         {/* Input fields for the user's first name, last name, and age */}
         <TextField
           autoFocus
-          margin="dense"
+          margin="dense" //Make it compact by reducing the top and bottom margins
           label="First Name"
           type="text"
           fullWidth
           value={firstName}
           onChange={onFirstNameChange}
+          disabled={readOnly}
         />
         <TextField
           margin="dense"
@@ -68,7 +70,9 @@ function UserDialog({
       {/* Action buttons at the bottom of the dialog */}
       <DialogActions>
         <Button onClick={onClose}>{readOnly ? "Close" : "Cancel"}</Button>
+        {!readOnly && // Doesn't show Save button when "readOnly" mode
         <Button onClick={onSave}>{editing ? "Update" : "Save"}</Button>
+        }
       </DialogActions>
     </Dialog>
   );

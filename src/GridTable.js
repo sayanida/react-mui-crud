@@ -1,15 +1,14 @@
 import React from "react";
-import { DataGrid, GridToolbarContainer } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { Paper } from "@mui/material";
 import CustomToolbar from "./Toolbar";
 import UserDialog from "./UserDialog";
-import { CenterFocusStrong } from "@mui/icons-material";
 
 // Column definitions for the DataGrid table
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
+  { field: "firstName", headerName: "First name", width: 140 },
+  { field: "lastName", headerName: "Last name", width: 140 },
   { field: "age", headerName: "Age", type: "number", width: 90 },
 ];
 
@@ -22,9 +21,9 @@ function GridTable() {
   const [lastName, setLastName] = React.useState("");
   const [age, setAge] = React.useState("");
 
-  // Edit用のState
-  const [openEdit, setOpenEdit] = React.useState(false);
-  const [selectedUser, setSelectedUser] = React.useState(null);
+  // State for Edit dialog
+  const [openEdit, setOpenEdit] = React.useState("");
+  const [selectedUser, setSelectedUser] = React.useState("");
   const [editFirstName, setEditFirstName] = React.useState("");
   const [editLastName, setEditLastName] = React.useState("");
   const [editAge, setEditAge] = React.useState("");
@@ -83,11 +82,11 @@ function GridTable() {
   };
 
   const handleEdit = (user) => {
-    setSelectedUser(user); // 選んだユーザーを保存
+    setSelectedUser(user); // Save selected user
     setEditFirstName(user.firstName);
     setEditLastName(user.lastName);
     setEditAge(user.age);
-    setOpenEdit(true); // Editダイアログを開く
+    setOpenEdit(true); // Open Edit dialog
   };
 
   const handleEditSave = () => {
@@ -104,7 +103,7 @@ function GridTable() {
       )
     );
     setOpenEdit(false);
-    setSelectedRows([]); // 編集後は選択をクリア
+    setSelectedRows([]); // clear selection after complete editing
   };
 
   const handleEditClose = () => setOpenEdit(false);
@@ -114,8 +113,6 @@ function GridTable() {
     setUserRows((prevRows) =>
       prevRows.filter((row) => !idsToDelete.includes(row.id))
     );
-    // 選択もクリア
-    setSelectedRows([]);
   };
 
   return (
@@ -123,7 +120,8 @@ function GridTable() {
       <Paper
         sx={{
           margin: "20px auto",
-          width: {
+          // make it responsive
+          width: { 
             xs: "90%",
             sm: "80%",
             md: "50%",
@@ -137,8 +135,8 @@ function GridTable() {
           columns={columns}
           pageSizeOptions={[5, 10]} // Options for page size in the pagination
           checkboxSelection // Enables checkboxes to select rows
-          disableColumnFilter // フィルター機能を無効化
-        sortingOrder={['asc', 'desc', null]} // 並べ替えを有効化
+          disableColumnFilter // disables default filter function
+        sortingOrder={['asc', 'desc', null]} // Enables sort function
           onRowClick={(params) => handleRead(params.row)}
           sx={{ border: 0 }} // Removes the default border around the grid
           // Replacing the default toolbar with a custom toolbar
