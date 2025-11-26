@@ -46,6 +46,10 @@ _**How far through did you get in the task? Did you complete it all?**_
 ## 2. Task Breakdown
 _**What was your process for breaking down the tasks into manageable steps?**_  
 
+1. Build the UI layout and basic appearance (table, buttons, dialog placement)
+2. Gradually add functionality step by step (Add → View → Edit → Delete)
+3. Adjust styling and layout to make the interface clean and responsive.
+
 - I divided tasks and branch as follows:
     - **feature/setup**　→ first setup and installing MUI
     - **feature/grid-display** → Create Grid table
@@ -59,20 +63,19 @@ _**What was your process for breaking down the tasks into manageable steps?**_
 ## 3. Challenges / Difficult Learning
 _**Which aspects posed a problem or difficult learning for you?**_
 
-- Several aspects of this assignment posed challenges and required further learning:
+
+- **Props** vs **State**: I found it challenging to fully grasp the differences between props and state, particularly when passing data and handling events between components, and I still need to deepen my understanding of communication and coordination between parent and child components.  
     - Managing state for selected rows in the DataGrid
     - Handling Dialog open/close
-    - **Component Imports**: I frequently forgot to import necessary components, which caused most of the errors.
-	- **Add/Save Functionality**: Implementing the Add and Save actions was difficult. I was unsure how to write the code, as my previous experience was mainly with static HTML and CSS. Understanding JavaScript syntax and making the user data dynamically update the table required a lot of time.
-	- **Code Organization**: Initially, I wrote all code in App.js, but as the code grew complex, I realized the need to separate functionality into different components. Following AI advice, I learned to split the code into reusable components:
-        - **App.js**: Root component, renders the overall app and includes GridTable.
-        - **GridTable.js**: Handles main logic, state management, DataGrid display, user data management, and dialog control.
-        - **UserDialog.js**: UI for input forms, receives all state from parent.
-        - **Toolbar.js**: Displays Add/Edit/Delete buttons, with logic handled by parent via events.
-    This taught me the importance of writing flexible, maintainable code and understanding inter-component communication.   
-    - **Props** vs **State**: I found it challenging to fully grasp the differences between props and state, especially when passing data and events between components.
-
-- 
+- **Component Imports**: I frequently forgot to import necessary components, which caused most of the errors.
+- **Add/Save Functionality**: Implementing the Add and Save actions was difficult. I was unsure how to write the code, as my previous experience was mainly with static HTML and CSS. Understanding JavaScript syntax and making the user data dynamically update the table required a lot of time.
+- **Code Organization**: Initially, I wrote all code in App.js, but as the code grew complex, I realized the need to separate functionality into different components. This taught me the importance of writing flexible, maintainable code and understanding inter-component communication. 
+Following AI advice, I learned to split the code into reusable components:
+    - **App.js**: Root component, renders the overall app and includes GridTable.
+    - **GridTable.js**: Handles main logic, state management, DataGrid display, user data management, and dialog control.
+    - **UserDialog.js**: UI for input forms, receives all state from parent.
+    - **Toolbar.js**: Displays Add/Edit/Delete buttons, with logic handled by parent via events.
+    - **GridTable.js** is the **parent component**, and **UserDialog.js** and **Toolbar.js** are the **child components**.   
 
 
 ## 4. Thoughts on MUI Library
