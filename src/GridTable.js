@@ -3,6 +3,7 @@ import { DataGrid, GridToolbarContainer } from "@mui/x-data-grid";
 import { Paper } from "@mui/material";
 import CustomToolbar from "./Toolbar";
 import UserDialog from "./UserDialog";
+import { CenterFocusStrong } from "@mui/icons-material";
 
 
 // Column definitions for the DataGrid table
@@ -94,7 +95,16 @@ const handleDelete = (idsToDelete) => {
 
   return (
     <div className="GridTable">
-      <Paper sx={{ height: 400, width: "100%" }}>
+      <Paper sx={{
+    margin: "20px auto",
+    width:{ 
+    xs: "90%",
+    sm: "80%",
+    md: "50%",
+    lg: "40%",
+      },
+    height: 400,
+  }}>
         <DataGrid
           rows={userRows} // use state instead of "rows"
           columns={columns}
@@ -149,9 +159,9 @@ const handleDelete = (idsToDelete) => {
   firstName={editFirstName}
   lastName={editLastName}
   age={editAge}
-  onFirstNameChange={setEditFirstName}
-  onLastNameChange={setEditLastName}
-  onAgeChange={setEditAge}
+  onFirstNameChange={(e) => setEditFirstName(e.target.value)}
+  onLastNameChange={(e) => setEditLastName(e.target.value)}
+  onAgeChange={(e) => setEditAge(e.target.value)}
   onSave={handleEditSave}
   onClose={handleEditClose}
 />
