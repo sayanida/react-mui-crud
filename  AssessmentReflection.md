@@ -7,8 +7,6 @@ _**I acknowledge the use of ChatGPT in the following ways (OpenAI, 2025):**_
 - To support questions and understanding regarding the implementation of dialogs and tables
 - To aid in interpreting the assignment requirements and organising related concepts
 
-<small>All coding and implementation work was done by myself. AI tools were used solely to aid understanding and were not employed to generate answers or complete code.
-
 ## 1. Task Completion
 _**How far through did you get in the task? Did you complete it all?**_
 
@@ -42,7 +40,6 @@ _**How far through did you get in the task? Did you complete it all?**_
 | | Layout | Ensure Grid is responsive and add a simple title | ✅ |
 
 
-
 ## 2. Task Breakdown
 _**What was your process for breaking down the tasks into manageable steps?**_  
 
@@ -62,7 +59,6 @@ _**What was your process for breaking down the tasks into manageable steps?**_
 
 ## 3. Challenges / Difficult Learning
 _**Which aspects posed a problem or difficult learning for you?**_
-
 
 - **Props** vs **State**: I found it challenging to fully grasp the differences between props and state, particularly when passing data and handling events between components, and I still need to deepen my understanding of communication and coordination between parent and child components.  
     - Managing state for selected rows in the DataGrid
@@ -95,8 +91,16 @@ _**Talk about a particular aspect/element and why you think it would be easy to 
 ## 6. Technical Questions
 _**Do you have any technical questions after completing this task?**_
 
-1. As a beginner/junior developer, I use AI tools to help me understand concepts or solutions that I don’t fully grasp yet. For example, I ask AI for sample code or explanations, and then study and adapt them to ensure I actually understand the solution. However, sometimes I am unsure whether I’m approaching it correctly or fully understanding it. 
+1. What is the recommended way for beginners or junior developers to use AI during learning and development?
 
-    From a professional perspective:  
-    - **What is the recommended way for beginners or junior developers to use AI during learning and development?**  
-    - **Which AI tools do professionals use, and how do they integrate them into their workflow?**
+2. Which AI tools for development do professionals use, and how do they integrate them into their workflow?
+
+3. What kind of application or small project should I try building next to continue improving?
+
+4. Which parts of my code structure or state management that you think I should improve or restructure?
+
+5. When you were starting out, what parts of React or JavaScript did you find the most challenging, and how did you work through them?
+
+6. For junior roles, which skills or habits do employers value the most?
+
+
