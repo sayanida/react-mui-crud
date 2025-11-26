@@ -6,27 +6,53 @@ import DialogActions from "@mui/material/DialogActions";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button"; 
  
-function UserDialog ({ open, editing, firstName, lastName, age, onClose, onSave, onFirstNameChange, onLastNameChange, onAgeChange}){
+function UserDialog ({ 
+    open,
+    editing,
+    firstName,
+    lastName, 
+    age, 
+    onClose, 
+    onSave, 
+    onFirstNameChange, 
+    onLastNameChange, 
+    onAgeChange}){
     return (
         // Dialog component used for adding a new user
      <Dialog open={open} onClose={onClose}>
-        <DialogTitle>Add User</DialogTitle>
+        <DialogTitle>
+            {editing ? "Edit User" : "Add User"}
+        </DialogTitle>
 
         <DialogContent>
           <DialogContentText>
-            Enter new user information below.
+            { editing ? "Update the user information below." : "Enter new user information below."}
           </DialogContentText>
 
           {/* Input fields for the user's first name, last name, and age */}
-          <TextField autoFocus margin="dense" label="First Name" fullWidth value={firstName} onChange={onFirstNameChange}/>
-          <TextField margin="dense" label="Last Name" fullWidth value={lastName} onChange={onLastNameChange}/>
-          <TextField margin="dense" label="Age" type="number" fullWidth value={age} onChange={onAgeChange}/>
+          <TextField autoFocus 
+          margin="dense" 
+          label="First Name" 
+          fullWidth value={firstName} 
+          onChange={onFirstNameChange}/>
+          <TextField 
+          margin="dense" 
+          label="Last Name" 
+          fullWidth value={lastName} 
+          onChange={onLastNameChange}/>
+          <TextField 
+          margin="dense" 
+          label="Age" 
+          type="number" 
+          fullWidth 
+          value={age} 
+          onChange={onAgeChange}/>
         </DialogContent>
 
          {/* Action buttons at the bottom of the dialog */}
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onSave}>Save</Button>
+          <Button onClick={onSave}>{editing ? "Update" : "Save"}</Button>
         </DialogActions>
       </Dialog>
     );

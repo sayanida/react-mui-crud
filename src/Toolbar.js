@@ -7,16 +7,30 @@ import { GridToolbarContainer } from "@mui/x-data-grid";
 
 // Custom toolbar component containing Add, Edit, and Delete buttons
 // appearance only
-function CustomToolbar({ onAddClick }) {
+function CustomToolbar({ onAddClick, selectedRows, handleEdit, handleDelete }) {
   return (
     <GridToolbarContainer>
       <IconButton color="primary" aria-label="Add New" onClick ={onAddClick}>
         <AddIcon />
       </IconButton>
-      <IconButton color="primary" aria-label="Edit">
+      <IconButton color="primary" aria-label="Edit" onClick ={() => {
+        if (selectedRows.length === 1){
+            handleEdit(selectedRows[0]);
+            }else{
+                alert("Please select one row to edit.");
+            }
+      }}
+      >
         <EditIcon />
       </IconButton>
-      <IconButton color="primary" aria-label="Delete">
+      <IconButton color="primary" aria-label="Delete"
+    //   onClick={() => {
+    //     if (selectedRows.length > 0) {
+    //   handleDelete(selectedRows.map(row => row.id)); // 選択行を即削除
+    // } else {
+    //   alert("Please select at least one row to delete.");
+    // }
+      }}>
         <DeleteIcon />
       </IconButton>
     </GridToolbarContainer>
