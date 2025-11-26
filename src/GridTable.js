@@ -84,13 +84,13 @@ const handleEditSave = () => {
 
 const handleEditClose = () => setOpenEdit(false);
 
-// const handleDelete = (idsToDelete) => {
-//   setUserRows((prevRows) =>
-//     prevRows.filter((row) => !idsToDelete.includes(row.id))
-//   );
-//   // 選択もクリア
-//   setSelectedRows([]);
-// };
+const handleDelete = (idsToDelete) => {
+  setUserRows((prevRows) =>
+    prevRows.filter((row) => !idsToDelete.includes(row.id))
+  );
+  // 選択もクリア
+  setSelectedRows([]);
+};
 
   return (
     <div className="GridTable">
@@ -108,7 +108,7 @@ const handleEditClose = () => setOpenEdit(false);
             onAddClick={handleClickOpen}
             selectedRows = {selectedRows}
             handleEdit={handleEdit}
-            // handleDelete = {handleDelete}
+            handleDelete = {handleDelete}
              />
         )
     }}

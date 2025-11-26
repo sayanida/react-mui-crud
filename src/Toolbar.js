@@ -24,12 +24,12 @@ function CustomToolbar({ onAddClick, selectedRows, handleEdit, handleDelete }) {
         <EditIcon />
       </IconButton>
       <IconButton color="primary" aria-label="Delete"
-    //   onClick={() => {
-    //     if (selectedRows.length > 0) {
-    //   handleDelete(selectedRows.map(row => row.id)); // 選択行を即削除
-    // } else {
-    //   alert("Please select at least one row to delete.");
-    // }
+      onClick={() => {
+        if (selectedRows.length > 0) {
+      handleDelete(selectedRows.map(row => row.id)); // 選択行を即削除
+    } else {
+      alert("Please select at least one row to delete.");
+    }
       }}>
         <DeleteIcon />
       </IconButton>
