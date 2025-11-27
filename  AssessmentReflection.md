@@ -63,7 +63,6 @@ _**Which aspects posed a problem or difficult learning for you?**_
 - **Props** vs **State**: I found it challenging to fully grasp the differences between props and state, particularly when passing data and handling events between components, and I still need to deepen my understanding of communication and coordination between parent and child components.  
     - Managing state for selected rows in the DataGrid
     - Handling Dialog open/close
-- **Component Imports**: I frequently forgot to import necessary components, which caused most of the errors.
 - **Add/Save Functionality**: Implementing the Add and Save actions was difficult. I was unsure how to write the code, as my previous experience was mainly with static HTML and CSS. Understanding JavaScript syntax and making the user data dynamically update the table required a lot of time.
 - **Code Organization**: Initially, I wrote all code in App.js, but as the code grew complex, I realized the need to separate functionality into different components. This taught me the importance of writing flexible, maintainable code and understanding inter-component communication. 
 Following AI advice, I learned to split the code into reusable components:

@@ -90,18 +90,6 @@ function GridTable() {
   };
 
   const handleEditSave = () => {
-    setUserRows((preRows) =>
-      preRows.map((row) =>
-        row.id === selectedUser.id
-          ? {
-              ...row,
-              firstName: editFirstName,
-              lastName: editLastName,
-              age: Number(editAge),
-            }
-          : row
-      )
-    );
     setOpenEdit(false);
     setSelectedRows([]); // clear selection after complete editing
   };
@@ -109,10 +97,8 @@ function GridTable() {
   const handleEditClose = () => setOpenEdit(false);
 
   // Delete
-  const handleDelete = (idsToDelete) => {
-    setUserRows((prevRows) =>
-      prevRows.filter((row) => !idsToDelete.includes(row.id))
-    );
+  const handleDelete = () => {
+    
   };
 
   return (
@@ -160,6 +146,7 @@ function GridTable() {
       </Paper>
 
       {/* UserDialog */}
+      {/* This part calls the UserDialog component to display the dialog.*/}
       <UserDialog
         open={open}
         editing={false}
@@ -171,6 +158,7 @@ function GridTable() {
         onFirstNameChange={(e) => setFirstName(e.target.value)}
         onLastNameChange={(e) => setLastName(e.target.value)}
         onAgeChange={(e) => setAge(e.target.value)}
+        // The current values of the user being edited are passed to the input form, and when the values change, the parent component’s state is updated.
       />
 
       <UserDialog
