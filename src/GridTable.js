@@ -182,37 +182,41 @@ function GridTable() {
 
       {/* UserDialog */}
       {/* This part calls the UserDialog component to display the dialog.*/}
+       <UserDialog
+        open={open}
+        editing={false}
+        firstName={firstName}
+        lastName={lastName}
+        age={age}
+        onClose={handleClose}
+        onSave={handleSave}
+        onFirstNameChange={(e) => setFirstName(e.target.value)}
+        onLastNameChange={(e) => setLastName(e.target.value)}
+        onAgeChange={(e) => setAge(e.target.value)}
+        // The current values of the user being edited are passed to the input form, and when the values change, the parent component’s state is updated.
+      />
+
       <UserDialog
-        mode={openRead ? "read" : openEdit ? "edit" : "add"} // decide the mode
-        open={open || openRead || openEdit}
-        firstName={openRead ? readUser?.firstName || "" : firstName}
-        lastName={
-          openRead
-            ? readUser?.lastName || ""
-            : openEdit
-            ? editLastName
-            : lastName
-        }
-        age={openRead ? readUser?.age || "" : openEdit ? editAge : age}
-        onChangeFirstName={openEdit ? setEditFirstName : setFirstName}
-        onChangeLastName={openEdit ? setEditLastName : setLastName}
-        onChangeAge={openEdit ? setEditAge : setAge}
-        onSave={openEdit ? handleEditSave : handleSave}
-        onClose={
-          openRead ? handleReadClose : openEdit ? handleEditClose : handleClose
-        }
-          onFirstNameChange={(e) => {
-    if (openEdit) setEditFirstName(e.target.value);
-    else if (!openRead) setFirstName(e.target.value);
-  }}
-  onLastNameChange={(e) => {
-    if (openEdit) setEditLastName(e.target.value);
-    else if (!openRead) setLastName(e.target.value);
-  }}
-  onAgeChange={(e) => {
-    if (openEdit) setEditAge(e.target.value);
-    else if (!openRead) setAge(e.target.value);
-  }}
+        open={openRead}
+        readOnly={true}
+        editing={false}
+        firstName={readUser?.firstName || ""}
+        lastName={readUser?.lastName || ""}
+        age={readUser?.age || ""}
+        onClose={handleReadClose}
+      />
+
+      <UserDialog
+        open={openEdit}
+        editing={true}
+        firstName={editFirstName}
+        lastName={editLastName}
+        age={editAge}
+        onFirstNameChange={(e) => setEditFirstName(e.target.value)}
+        onLastNameChange={(e) => setEditLastName(e.target.value)}
+        onAgeChange={(e) => setEditAge(e.target.value)}
+        onSave={handleEditSave}
+        onClose={handleEditClose}
       />
     </div>
   );
