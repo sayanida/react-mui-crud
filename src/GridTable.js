@@ -31,18 +31,28 @@ function GridTable() {
 
   // Sample data rows displayed in the DataGrid
   // Make the rows dynamic
-  const [userRows, setUserRows] = React.useState([
-    { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-    { id: 4, firstName: "Arya", lastName: "Stark", age: 16 },
-    { id: 5, firstName: "Sansa", lastName: "Stark", age: 20 },
-    { id: 6, firstName: "Bran", lastName: "Stark", age: 18 },
-    { id: 7, firstName: "Tyrion", lastName: "Lannister", age: 39 },
-    { id: 8, firstName: "Daenerys", lastName: "Targaryen", age: 32 },
-    { id: 9, firstName: "Jorah", lastName: "Mormont", age: 45 },
-    { id: 10, firstName: "Samwell", lastName: "Tarly", age: 25 },
-  ]);
+  const [userRows, setUserRows] = React.useState(() => {
+    const saved = localStorage.getItem("userRows"); // use local　storage
+    return saved
+      ? JSON.parse(saved)
+      : [
+          { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
+          { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
+          { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
+          { id: 4, firstName: "Arya", lastName: "Stark", age: 16 },
+          { id: 5, firstName: "Sansa", lastName: "Stark", age: 20 },
+          { id: 6, firstName: "Bran", lastName: "Stark", age: 18 },
+          { id: 7, firstName: "Tyrion", lastName: "Lannister", age: 39 },
+          { id: 8, firstName: "Daenerys", lastName: "Targaryen", age: 32 },
+          { id: 9, firstName: "Jorah", lastName: "Mormont", age: 45 },
+          { id: 10, firstName: "Samwell", lastName: "Tarly", age: 25 },
+        ];
+  });
+
+  // when userRows updated, save to localStorage
+  React.useEffect(() => {
+    localStorage.setItem("userRows", JSON.stringify(userRows));
+  }, [userRows]);
 
   const [openRead, setOpenRead] = React.useState(false);
   const [readUser, setReadUser] = React.useState(null);
@@ -68,6 +78,11 @@ function GridTable() {
   };
 
   const handleSave = () => {
+    // not allow "null"
+    if (!firstName.trim() || !lastName.trim() || !age) {
+      alert("All fields are required!");
+      return;
+    }
     const newUser = {
       id: userRows.length + 1, //Add 1 to the current row count to determine the new user's ID
       firstName,
@@ -90,7 +105,22 @@ function GridTable() {
   };
 
   const handleEditSave = () => {
+    if (!selectedUser) return;
+
+    // Update selected user info inside userRows
+    const updateRows = userRows.map((user) =>
+      user.id === selectedUser.id
+        ? {
+            ...user,
+            firstName: editFirstName,
+            lastName: editLastName,
+            age: Number(editAge),
+          }
+        : user
+    );
+    setUserRows(updateRows); //set updated user
     setOpenEdit(false);
+    setSelectedUser(null);
     setSelectedRows([]); // clear selection after complete editing
   };
 
@@ -98,7 +128,11 @@ function GridTable() {
 
   // Delete
   const handleDelete = () => {
-    
+    const remainingRows = userRows.filter(
+      (user) => !selectedRows.includes(user.id)
+    );
+    setUserRows(remainingRows);
+    setSelectedRows([]);
   };
 
   return (
@@ -107,7 +141,7 @@ function GridTable() {
         sx={{
           margin: "20px auto",
           // make it responsive
-          width: { 
+          width: {
             xs: "90%",
             sm: "80%",
             md: "50%",
@@ -122,7 +156,7 @@ function GridTable() {
           pageSizeOptions={[5, 10]} // Options for page size in the pagination
           checkboxSelection // Enables checkboxes to select rows
           disableColumnFilter // disables default filter function
-        sortingOrder={['asc', 'desc', null]} // Enables sort function
+          sortingOrder={["asc", "desc", null]} // Enables sort function
           onRowClick={(params) => handleRead(params.row)}
           sx={{ border: 0 }} // Removes the default border around the grid
           // Replacing the default toolbar with a custom toolbar
@@ -139,49 +173,46 @@ function GridTable() {
           }}
           showToolbar // Ensures that the toolbar is displayed
           selectionModel={selectedRows}
-          onRowSelectionModelChange={(newSelection) =>
-            setSelectedRows(newSelection)
-          }
+          onRowSelectionModelChange={(newSelection) => {
+            setSelectedRows(newSelection);
+            setSelectedRows(Array.from(newSelection.ids));
+          }}
         />
       </Paper>
 
       {/* UserDialog */}
       {/* This part calls the UserDialog component to display the dialog.*/}
       <UserDialog
-        open={open}
-        editing={false}
-        firstName={firstName}
-        lastName={lastName}
-        age={age}
-        onClose={handleClose}
-        onSave={handleSave}
-        onFirstNameChange={(e) => setFirstName(e.target.value)}
-        onLastNameChange={(e) => setLastName(e.target.value)}
-        onAgeChange={(e) => setAge(e.target.value)}
-        // The current values of the user being edited are passed to the input form, and when the values change, the parent component’s state is updated.
-      />
-
-      <UserDialog
-        open={openRead}
-        readOnly={true}
-        editing={false}
-        firstName={readUser?.firstName || ""}
-        lastName={readUser?.lastName || ""}
-        age={readUser?.age || ""}
-        onClose={handleReadClose}
-      />
-
-      <UserDialog
-        open={openEdit}
-        editing={true}
-        firstName={editFirstName}
-        lastName={editLastName}
-        age={editAge}
-        onFirstNameChange={(e) => setEditFirstName(e.target.value)}
-        onLastNameChange={(e) => setEditLastName(e.target.value)}
-        onAgeChange={(e) => setEditAge(e.target.value)}
-        onSave={handleEditSave}
-        onClose={handleEditClose}
+        mode={openRead ? "read" : openEdit ? "edit" : "add"} // decide the mode
+        open={open || openRead || openEdit}
+        firstName={openRead ? readUser?.firstName || "" : firstName}
+        lastName={
+          openRead
+            ? readUser?.lastName || ""
+            : openEdit
+            ? editLastName
+            : lastName
+        }
+        age={openRead ? readUser?.age || "" : openEdit ? editAge : age}
+        onChangeFirstName={openEdit ? setEditFirstName : setFirstName}
+        onChangeLastName={openEdit ? setEditLastName : setLastName}
+        onChangeAge={openEdit ? setEditAge : setAge}
+        onSave={openEdit ? handleEditSave : handleSave}
+        onClose={
+          openRead ? handleReadClose : openEdit ? handleEditClose : handleClose
+        }
+          onFirstNameChange={(e) => {
+    if (openEdit) setEditFirstName(e.target.value);
+    else if (!openRead) setFirstName(e.target.value);
+  }}
+  onLastNameChange={(e) => {
+    if (openEdit) setEditLastName(e.target.value);
+    else if (!openRead) setLastName(e.target.value);
+  }}
+  onAgeChange={(e) => {
+    if (openEdit) setEditAge(e.target.value);
+    else if (!openRead) setAge(e.target.value);
+  }}
       />
     </div>
   );
