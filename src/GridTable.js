@@ -40,12 +40,6 @@ function GridTable() {
           { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
           { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
           { id: 4, firstName: "Arya", lastName: "Stark", age: 16 },
-          { id: 5, firstName: "Sansa", lastName: "Stark", age: 20 },
-          { id: 6, firstName: "Bran", lastName: "Stark", age: 18 },
-          { id: 7, firstName: "Tyrion", lastName: "Lannister", age: 39 },
-          { id: 8, firstName: "Daenerys", lastName: "Targaryen", age: 32 },
-          { id: 9, firstName: "Jorah", lastName: "Mormont", age: 45 },
-          { id: 10, firstName: "Samwell", lastName: "Tarly", age: 25 },
         ];
   });
 
@@ -174,7 +168,6 @@ function GridTable() {
           showToolbar // Ensures that the toolbar is displayed
           selectionModel={selectedRows}
           onRowSelectionModelChange={(newSelection) => {
-            setSelectedRows(newSelection);
             setSelectedRows(Array.from(newSelection.ids));
           }}
         />
