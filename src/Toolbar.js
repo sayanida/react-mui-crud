@@ -28,7 +28,7 @@ function CustomToolbar({ onAddClick, selectedRows, userRows, handleEdit, handleD
       <IconButton color="primary" aria-label="Delete"
       onClick={() => {
         if (selectedRows.length > 0) {
-      handleDelete(selectedRows);
+      handleDelete();
     } else {
       alert("Please select at least one row to delete.");
     }

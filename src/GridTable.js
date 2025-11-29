@@ -3,10 +3,11 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Paper } from "@mui/material";
 import CustomToolbar from "./Toolbar";
 import UserDialog from "./UserDialog";
+import { v4 as uuid } from "uuid";
 
 // Column definitions for the DataGrid table
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
+  { field: "displayId", headerName: "ID", width: 70 },
   { field: "firstName", headerName: "First name", width: 140 },
   { field: "lastName", headerName: "Last name", width: 140 },
   { field: "age", headerName: "Age", type: "number", width: 90 },
@@ -36,10 +37,34 @@ function GridTable() {
     return saved
       ? JSON.parse(saved)
       : [
-          { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-          { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-          { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-          { id: 4, firstName: "Arya", lastName: "Stark", age: 16 },
+          {
+            id: uuid(),
+            displayId: 1,
+            lastName: "Snow",
+            firstName: "Jon",
+            age: 35,
+          },
+          {
+            id: uuid(),
+            displayId: 2,
+            lastName: "Lannister",
+            firstName: "Cersei",
+            age: 42,
+          },
+          {
+            id: uuid(),
+            displayId: 3,
+            lastName: "Lannister",
+            firstName: "Jaime",
+            age: 45,
+          },
+          {
+            id: uuid(),
+            displayId: 4,
+            firstName: "Arya",
+            lastName: "Stark",
+            age: 16,
+          },
         ];
   });
 
@@ -78,7 +103,8 @@ function GridTable() {
       return;
     }
     const newUser = {
-      id: userRows.length + 1, //Add 1 to the current row count to determine the new user's ID
+      id: uuid(), // Actual management ID
+      displayId: userRows.length + 1, // Short ID for display (1, 2, 3, ...)
       firstName,
       lastName,
       age: Number(age), // Convert string to number
@@ -175,7 +201,7 @@ function GridTable() {
 
       {/* UserDialog */}
       {/* This part calls the UserDialog component to display the dialog.*/}
-       <UserDialog
+      <UserDialog
         open={open}
         editing={false}
         firstName={firstName}
